@@ -1,22 +1,19 @@
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        #stack of characters
-        stack=[]
-        
-        for i in range(len(s)):
-            if s[i]=='{' or s[i]=='(' or s[i]=='[':
-                stack.append(s[i])
-            else : 
-                if not stack:
-                    return False
+class Solution:
+    def isValid(self, s: str) -> bool:
+        brackets={'(': ')', '{':'}', '[':']'}
 
-                if (ord(s[i])-2) == ord(stack[-1]) or (ord(s[i])-1) == ord(stack[-1]):
+        stack=[]
+
+        for i in s:
+            if i in brackets:
+                stack.append(i)
+            elif i in brackets.values():
+                if stack and brackets[stack[-1]]== i :
                     stack.pop()
                 else:
                     return False
-                
-        return not stack 
+
+        if len(stack) == 0:
+            return True
+        else:
+            return False
